@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Особое приглашение ✨</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #f7d6c8 0%, #e09f67 100%);
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .card {
+            background: rgba(255, 253, 250, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow: 0 10px 35px rgba(139, 69, 19, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            text-align: center;
+            max-width: 420px;
+            width: 100%;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .emoji {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(5deg); }
+        }
+
+        h1 {
+            color: #4a2c11;
+            font-size: 1.6rem;
+            margin-bottom: 16px;
+            line-height: 1.4;
+            font-weight: 700;
+        }
+
+        p {
+            color: #6e4e37;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            position: relative;
+            height: 50px;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        #yesBtn {
+            background-color: #d96b27;
+            color: white;
+            box-shadow: 0 4px 15px rgba(217, 107, 39, 0.3);
+        }
+
+        #yesBtn:hover {
+            background-color: #f2853f;
+            transform: scale(1.05);
+        }
+
+        #noBtn {
+            background-color: #fff;
+            color: #d96b27;
+            border: 1px solid #d96b27;
+            position: absolute;
+            right: 55px;
+        }
+
+        .success-content {
+            display: none;
+        }
+
+        .details {
+            background: rgba(217, 107, 39, 0.07);
+            padding: 20px;
+            border-radius: 16px;
+            margin-top: 20px;
+            border-left: 4px solid #d96b27;
+            text-align: left;
+        }
+
+        .details-item {
+            margin: 10px 0;
+            font-size: 1rem;
+            color: #4a2c11;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="mainCard">
+        <!-- Главный экран -->
+        <div class="init-content">
+            <span class="emoji">🍁</span>
+            <h1>Доброе утро.</h1>
+            <p>Пойдешь сегодня со Мной гулять по осенней Москве?</p>
+            
+            <div class="btn-group">
+                <button id="yesBtn">Да!</button>
+                <button id="noBtn">Нет</button>
+            </div>
+        </div>
+
+        <!-- Экран после согласия -->
+        <div class="success-content" id="successContent">
+            <span class="emoji">☕🍂</span>
+            <h1>Прекрасный план!</h1>
+            <p>Уже выезжаю.</p>
+            <div class="details">
+                <div class="details-item">🍂 <b>Атмосфера:</b> Шуршащие листья и красивые переулки</div>
+                <div class="details-item">☕ <b>В меню:</b> Горячий кофе, разговоры и уют</div>
+                <div class="details-item">🧣 <b>Одевайся:</b> Потеплее, чтобы подольше погулять</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const initContent = document.querySelector('.init-content');
+        const successContent = document.getElementById('successContent');
+
+        function moveNoButton() {
+            const card = document.getElementById('mainCard');
+            const cardRect = card.getBoundingClientRect();
+            const btnRect = noBtn.getBoundingClientRect();
+
+            const maxX = cardRect.width - btnRect.width - 40;
+            const maxY = cardRect.height - btnRect.height - 40;
+
+            const randomX = Math.floor(Math.random() * maxX) + 20;
+            const randomY = Math.floor(Math.random() * maxY) + 20;
+
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        noBtn.addEventListener('mouseover', moveNoButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveNoButton();
+        });
+
+        yesBtn.addEventListener('click', () => {
+            initContent.style.display = 'none';
+            successContent.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
